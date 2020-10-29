@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+		<title>BIT240: Week 9: jQuery Plugins</title>
+		
+		<script type="text/javascript" src="canvasjs.min.js"></script>
+		<script type="text/javascript">	
+		// *** Step 3. Create Graphs ***
+		window.onload = function () {
+			var lineChart = new CanvasJS.Chart("lineChartContainer", {
+				title: {
+					text: "Professor DOTA2 Hours"
+				},
+				data: [
+					{
+						type: "line",
+						dataPoints: [
+
+						]
+					}
+				]
+			}); 
+			lineChart.render();
+		  
+			// *** Step 2. Fetch Data ***
+			//function runJavascript() {			
+				function createLineChart() {
+					fetch('https://mufall2020-bit240.github.io/professor_api/professor/video_game_hours.json').then(function(httpResponse) {
+						// should be all of the info about the request
+						// and ALL of the returned info
+						console.log(httpResponse);
+						
+						return httpResponse.json();
+					}).then(function(jsonData) {
+						console.log(jsonData);
+												
+						var i;
+						for (i = 0; i < jsonData.data.length; i++) {
+							lineChart.options.data[0].dataPoints.push(jsonData.data[i]);
+						};
+						
+						lineChart.render();						
+					});	
+				}						
+				createLineChart();
+				
+			var pieChart = new CanvasJS.Chart("pieChartContainer", {
+				title: {
+					text: "Professor Anxiety"
+				},
+				data: [
+					{
+						type: "pie",
+						dataPoints: [
+
+						]
+					}
+				]
+			});
+			pieChart.render();
+				
+				function createPieChart() {
+					fetch('https://mufall2020-bit240.github.io/professor_api/professor/anxiety.json').then(function(httpResponse) {
+						// should be all of the info about the request
+						// and ALL of the returned info
+						console.log(httpResponse);
+						
+						return httpResponse.json();
+					}).then(function(jsonData) {
+						console.log(jsonData);
+						
+						var i;
+						for (i = 0; i < jsonData.data.length; i++) {
+							pieChart.options.data[0].dataPoints.push(jsonData.data[i]);
+						};
+						
+						pieChart.render();
+					});	
+				}						
+				createPieChart();				
+			//} // end runJavascript()
+		}
+		
+		//var pie = document.getElementById("pieChartNavBtn");
+		//pie.addEventListener("click", showPieChart);
+		
+		document.getElementById("pieChartNavBtn").addEventListener("click",showPieChart);
+		
+		function showPieChart() {
+			console.log("Pie!");
+		}
+		
+			
+		
+		</script>
+		<style>
+			#pieChartContainer {
+				display: none;
+			}
+		</style>
+
+	</head>
+	<body>
+		<h1>BIT240: Week 9: jQuery Plugins</h1>
+		
+		<!-- *** Step 1. Bootstrap Setup *** -->
+		<!-- *** Navbar *** -->
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<a class="navbar-brand" href="index.html">Home</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li id="pieChartNavBtn" class="nav-item active">
+						<a class="nav-link" href="#">Pie Graph <span class="sr-only">(current)</span></a>
+					</li>
+					
+					<li id="lineChartBtn" class="nav-item active">
+						<a class="nav-link" href="#" onclick="createLineChart">Line Graph <span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+				
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
+		  </div>
+		</nav>
+		
+		<!-- *** Jumbotron *** -->
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-4">Click the buttons in the navigation bar!</h1>
+				<p class="lead">Display graphs using the corresponding buttons above.</p>
+			</div>
+		</div>
+
+		<!-- Display graphs -->
+		<div id="lineChartContainer" style="height: 500px; width: 100%;"></div>
+		<div id="pieChartContainer" style="height: 500px; width: 100%;"></div>
+		
+		<!-- *************************************************************************************************************************************************************** -->
+		<!-- *** Step 1. Bootstrap Setup *** -->
+
+		<!-- jQuery and Bootstrap Bundle (includes Popper) -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+	</body>
+</html>
