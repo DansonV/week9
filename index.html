@@ -12,93 +12,92 @@
 		
 		<script type="text/javascript" src="canvasjs.min.js"></script>
 		<script type="text/javascript">	
-		// *** Step 3. Create Graphs ***
-		window.onload = function () {
-			var lineChart = new CanvasJS.Chart("lineChartContainer", {
-				title: {
-					text: "Professor DOTA2 Hours"
-				},
-				data: [
-					{
-						type: "line",
-						dataPoints: [
+			// *** Step 3. Create Graphs ***
+			window.onload = function () {
+				var lineChart = new CanvasJS.Chart("lineChartContainer", {
+					title: {
+						text: "Professor DOTA2 Hours"
+					},
+					data: [
+						{
+							type: "line",
+							dataPoints: [
 
-						]
-					}
-				]
-			}); 
-			lineChart.render();
+							]
+						}
+					]
+				}); 
+				lineChart.render();
 		  
-			// *** Step 2. Fetch Data ***
-			//function runJavascript() {			
+				// *** Step 3. Create Graphs ***			
 				function createLineChart() {
+					// *** Step 2. Fetch Data ***
 					fetch('https://mufall2020-bit240.github.io/professor_api/professor/video_game_hours.json').then(function(httpResponse) {
 						// should be all of the info about the request
 						// and ALL of the returned info
 						console.log(httpResponse);
-						
+							
 						return httpResponse.json();
 					}).then(function(jsonData) {
 						console.log(jsonData);
-												
+													
 						var i;
 						for (i = 0; i < jsonData.data.length; i++) {
 							lineChart.options.data[0].dataPoints.push(jsonData.data[i]);
-						};
-						
+						};							
 						lineChart.render();						
 					});	
-				}						
+				}				
 				createLineChart();
-				
-			var pieChart = new CanvasJS.Chart("pieChartContainer", {
-				title: {
-					text: "Professor Anxiety"
-				},
-				data: [
-					{
-						type: "pie",
-						dataPoints: [
+					
+				var pieChart = new CanvasJS.Chart("pieChartContainer", {
+					title: {
+						text: "Professor Anxiety"
+					},
+					data: [
+						{
+							type: "pie",
+							dataPoints: [
 
-						]
-					}
-				]
-			});
-			pieChart.render();
+							]
+						}
+					]
+				});
+				pieChart.render();
 				
+				// *** Step 3. Create Graphs ***
 				function createPieChart() {
+					// *** Step 2. Fetch Data ***
 					fetch('https://mufall2020-bit240.github.io/professor_api/professor/anxiety.json').then(function(httpResponse) {
 						// should be all of the info about the request
 						// and ALL of the returned info
-						console.log(httpResponse);
-						
+						console.log(httpResponse);						
 						return httpResponse.json();
 					}).then(function(jsonData) {
 						console.log(jsonData);
-						
+							
 						var i;
 						for (i = 0; i < jsonData.data.length; i++) {
 							pieChart.options.data[0].dataPoints.push(jsonData.data[i]);
 						};
-						
+							
 						pieChart.render();
 					});	
 				}						
 				createPieChart();				
-			//} // end runJavascript()
-		}
-		
-		//var pie = document.getElementById("pieChartNavBtn");
-		//pie.addEventListener("click", showPieChart);
-		
-		document.getElementById("pieChartNavBtn").addEventListener("click",showPieChart);
-		
-		function showPieChart() {
-			console.log("Pie!");
-		}
-		
-			
-		
+						
+				document.getElementById("pieChartNavBtn").addEventListener("click",showPieChart);		
+				function showPieChart() {
+					$(lineChartContainer).hide();
+					$(pieChartContainer).show();
+				}
+				
+				document.getElementById("lineChartNavBtn").addEventListener("click", showLineGraph);			
+				function showLineGraph() {
+					$(pieChartContainer).hide();
+					$(lineChartContainer).show();
+				}		
+		}	
 		</script>
 		<style>
 			#pieChartContainer {
@@ -124,7 +123,7 @@
 						<a class="nav-link" href="#">Pie Graph <span class="sr-only">(current)</span></a>
 					</li>
 					
-					<li id="lineChartBtn" class="nav-item active">
+					<li id="lineChartNavBtn" class="nav-item active">
 						<a class="nav-link" href="#" onclick="createLineChart">Line Graph <span class="sr-only">(current)</span></a>
 					</li>
 				</ul>
